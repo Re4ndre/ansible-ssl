@@ -1,0 +1,21 @@
+<IfModule mod_ssl.c>
+  <VirtualHost _default_:443>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+
+    SSLEngine on
+    SSLCertificateFile {{ ssl_cert_file }}
+    SSLCertificateKeyFile {{ ssl_key_file }}
+
+    <FilesMatch "\.(cgi|shtml|phtml|php)$">
+      SSLOptions +StdEnvVars
+    </FilesMatch>
+
+    <Directory /usr/lib/cgi-bin>
+      SSLOptions +StdEnvVars
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+  </VirtualHost>
+</IfModule>
